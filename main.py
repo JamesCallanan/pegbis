@@ -111,11 +111,11 @@ if __name__ == "__main__":
       for i,elem in enumerate(args):
         if i%2 == 0: #if even number
           if elem == '-sigma':
-            sigma = args[i+1]
+            sigma = float(args[i+1])
           elif elem == '-k':
-            k = args[i+1]
+            k = float(args[i+1])
           elif elem == '-min':
-            min = args[i+1]
+            min = float(args[i+1])
           elif elem == '-input_path':
             input_path = args[i+1]       
           elif elem == '-output_path':
