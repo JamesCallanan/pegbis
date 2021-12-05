@@ -102,6 +102,7 @@ if __name__ == "__main__":
     sigma = 0.5
     k = 500
     min = 50
+    output_path = str('')
     
     # Overwriting default args
     args = sys.argv[1:]
@@ -123,7 +124,7 @@ if __name__ == "__main__":
     if not output_path:
         file_name = input_path.split('/')[-1]
         output_path = f"/content/Segmented/{file_name}"
-        
+
     # Loading the image
     input_image = ndimage.imread(input_path, flatten=False, mode=None)
     print("Loading is done.")
