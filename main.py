@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from filter import *
 from segment_graph import *
 import time
+import sys
+import cv2
 
 
 # --------------------------------------------------------------------------------
@@ -92,16 +94,39 @@ def segment(in_image, sigma, k, min_size):
     plt.imshow(output)
     a.set_title('Segmented Image')
     plt.show()
+    return output
 
 
 if __name__ == "__main__":
+    # Default args
     sigma = 0.5
     k = 500
     min = 50
-    input_path = "data/paris.jpg"
+    
+    # Overwriting default args
+    args = sys.argv[1:]
+    if len(args):
+      print('Args received')
+      for i,elem in enumerate(args):
+        if i%2 == 0: #if even number
+          if elem == '-sigma':
+            sigma = args[i+1]
+          elif elem == '-k':
+            k = args[i+1]
+          elif elem == '-min':
+            min = args[i+1]
+          elif elem == '-input_path':
+            input_path = args[i+1]       
+          elif elem == '-output_path':
+            output_path = args[i+1]
 
+    if not output_path:
+        file_name = input_path.split('/')[-1]
+        output_path = f"/content/Segmented/{file_name}"
+        
     # Loading the image
     input_image = ndimage.imread(input_path, flatten=False, mode=None)
     print("Loading is done.")
     print("processing...")
-    segment(input_image, sigma, k, min)
+    output_image = segment(input_image, sigma, k, min)
+    cv2.imwrite(output_path, output_image)
