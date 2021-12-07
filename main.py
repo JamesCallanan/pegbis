@@ -123,7 +123,9 @@ if __name__ == "__main__":
 
     if not output_path:
         file_name = input_path.split('/')[-1]
-        output_path = f"/content/Segmented/{file_name}_segmented"
+        filename = file_name.split('.')[0]
+        extension = '.' + file_name.split('.')[-1]
+        output_path = f"/content/Segmented/{filename}_segmented{extension}"
 
     # Loading the image
     input_image = ndimage.imread(input_path, flatten=False, mode=None)
