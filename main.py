@@ -75,10 +75,17 @@ def segment(in_image, sigma, k, min_size):
     for i in range(height * width):
         colors[i, :] = random_rgb()
 
+    colour = 1
+    component_colours = {}
     for y in range(height):
-        for x in range(width):
-            comp = u.find(y * width + x)
-            output[y, x, :] = colors[comp, :]
+      for x in range(width):
+        comp = u.find(y * width + x)
+        if str(comp) not in component_colours:
+          component_colours[str(comp)] = np.array([colour,colour,colour])
+          colour = colour + 1
+        output[y, x, :] = component_colours[str(comp)]
+        #Previous where random color was allocated but lead to duplicates sometimes
+        #output[y, x, :] = colors[comp, :]
 
     elapsed_time = time.time() - start_time
     print(
